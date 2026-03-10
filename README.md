@@ -85,22 +85,17 @@ jupyter notebook notebooks/03_modeling.ipynb
 
 ---
 
-## Perspectives d'Amélioration
+Perspectives d'Amélioration
 
-### Métriques
-- **PR-AUC** (Precision-Recall AUC) : métrique plus fiable que ROC-AUC sur dataset déséquilibré (20/80), car le ROC-AUC peut être optimiste en comptant les vrais négatifs très nombreux
+- **PR-AUC** : Ajouter cette métrique pour mieux évaluer le modèle, 
+  car le ROC-AUC peut être trompeur quand les classes sont déséquilibrées (20/80).
 
-### Modélisation
-- **CatBoost** : optimisé pour variables catégorielles
-- **Stacking / Blending** : combiner LightGBM + Random Forest
-- **Calibration des probabilités** : améliorer la fiabilité des scores de risque
-- **SHAP values** : explications individuelles par client (au-delà de la feature importance globale)
+- **SHAP values** : Comprendre pourquoi le modèle prédit un churn 
+  pour chaque client individuellement, pas seulement en moyenne.
 
-### Feature Engineering
-- Features temporelles : récence des transactions, tendances
-- Interactions : `age × balance`, `tenure × products`
-- **Customer Lifetime Value (CLV)** : croiser risque churn × valeur client
+- **Calibration des probabilités** : S'assurer qu'un score de 70% 
+  correspond vraiment à 70% de risque réel.
 
-### Déséquilibre
-- Comparer `class_weight` vs SMOTE, ADASYN, Borderline-SMOTE
-- Optimisation multi-objectif (maximiser Recall ET Precision simultanément)
+- **Segmentation par valeur client** : Prioriser les actions de rétention 
+  sur les clients les plus rentables plutôt que de traiter tous 
+  les churners identifiés de la même façon.
