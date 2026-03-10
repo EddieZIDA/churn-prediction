@@ -24,9 +24,9 @@ LightGBM (modèle retenu)
 | Random Forest | 0.8676  | 69.3%  | 58.6%     | 0.635    | 83.8%    |
 | SVM           | 0.8597  | 78.4%  | 47.3%     | 0.590    | 77.9%    |
 
-**Décision finale : LightGBM** - Perdre un client coûte structurellement plus cher que de le contacter inutilement. Dans ce contexte, maximiser le Recall prime sur la Precision. LightGBM rate 31 churners de moins que Random Forest, ce qui justifie pleinement les fausses alertes supplémentaires générées.
+**Décision finale : LightGBM** - Perdre un client coûte plus cher que de le contacter inutilement. Dans ce contexte, maximiser le Recall prime sur la Precision. LightGBM rate 31 churners de moins que Random Forest.
 
-> Random Forest reste défendable si les campagnes de rétention sont particulièrement coûteuses et nécessitent un ciblage chirurgical.
+> Random Forest reste acceptable si les campagnes de rétention sont particulièrement coûteuses et nécessitent un ciblage très précis.
 
 ---
 
