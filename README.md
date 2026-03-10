@@ -43,7 +43,7 @@ LightGBM (modèle retenu)
 
 ### 1. Preprocessing & Feature Engineering
 - Dataset : 10 000 clients, 12 variables brutes, **aucune valeur manquante**
-- Encodage des variables catégorielles : `country` (one-hot-Encoder), `gender` (binaire)
+- Encodage des variables catégorielles : `country` (OneHotEncoder), `gender` (binaire)
 - Nouvelles features créées :
   - `has_balance` : client avec solde > 0
   - `active_products` : croisement activité × nombre de produits
