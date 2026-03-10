@@ -74,7 +74,7 @@ LightGBM (modèle retenu)
 
 ---
 
-## Quick Start
+## Lancer le projet
 
 ```bash
 git clone https://github.com/EddieZIDA/churn-prediction.git
