@@ -2,7 +2,7 @@
 
 **Prédiction du risque de départ des clients bancaires par Machine Learning**
 
-![Streamlit](https://churn-prediction7.streamlit.app/)
+(https://churn-prediction7.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![LightGBM](https://img.shields.io/badge/LightGBM-AUC--ROC%200.87-success)
 ![License](https://img.shields.io/badge/License-MIT-green)
