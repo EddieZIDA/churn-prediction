@@ -1,5 +1,6 @@
 # Customer Churn Prediction
 **Prédiction du risque de départ des clients bancaires par Machine Learning**
+Link: https://churn-prediction7.streamlit.app/
 
 > Dataset : 10 000 clients · Meilleur modèle : LightGBM · AUC-ROC : 0.87
 
