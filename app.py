@@ -46,6 +46,7 @@ def get_shap_explainer(_model):
     """Crée et met en cache l'explicateur SHAP pour éviter de le recalculer."""
     return shap.TreeExplainer(_model)
 
+
 # --- INGENIERIE DES CARACTÉRISTIQUES ---
 def get_age_group(age: float) -> dict:
     return {
@@ -55,11 +56,13 @@ def get_age_group(age: float) -> dict:
         "age_group_very_old": int(age > 60),
     }
 
+
 def get_tenure_group(tenure: float) -> dict:
     return {
         "tenure_group_medium": int(2 < tenure <= 5),
         "tenure_group_loyal": int(tenure > 5),
     }
+
 
 def build_features(answers: dict) -> pd.DataFrame:
     """Transforme les entrées utilisateur en DataFrame prêt pour la prédiction."""
@@ -68,7 +71,7 @@ def build_features(answers: dict) -> pd.DataFrame:
     active_member = int(answers["active_member"] == "Oui")
 
     feature_values = {
-        "credit_score": DEFAULT_CREDIT_SCORE,
+        "credit_score": answers["credit_score"],
         "age": answers["age"],
         "tenure": answers["tenure"],
         "balance": answers["balance"],
@@ -87,12 +90,14 @@ def build_features(answers: dict) -> pd.DataFrame:
 
     return pd.DataFrame([feature_values], columns=FEATURE_COLUMNS)
 
+
 def format_probability(prob: float) -> tuple[str, str]:
     if prob >= 0.7:
         return "Risque élevé", "#cc0000"
     if prob >= 0.4:
         return "Risque modéré", "#ff7f0e"
     return "Risque faible", "#2ca02c"
+
 
 # --- AFFICHAGE DES RÉSULTATS ---
 def display_shap_analysis(model, X: pd.DataFrame):
@@ -139,6 +144,7 @@ def display_shap_analysis(model, X: pd.DataFrame):
         st.error("Impossible de calculer les explications SHAP pour ce client.")
         st.exception(exc)
 
+
 # --- APPLICATION PRINCIPALE ---
 def main():
     st.set_page_config(
@@ -164,9 +170,8 @@ def main():
             estimated_salary = st.number_input("Salaire estimé", min_value=0.0, value=50000.0, step=1000.0, format="%.2f")
             country = st.selectbox("Pays", ["France", "Germany", "Spain"], index=0)
             gender = st.selectbox("Genre", ["Female", "Male"], index=0)
-            
             st.write("---")
-            st.info("Le score de crédit est fixé à 650 par défaut.")
+            credit_score = st.slider("Score de crédit", min_value=300, max_value=850, value=650, step=1)
 
         submit_button = st.form_submit_button("Prédire le churn", use_container_width=True)
 
@@ -188,6 +193,7 @@ def main():
             "estimated_salary": float(estimated_salary),
             "country": country,
             "gender": gender,
+            "credit_score": int(credit_score)
         }
         
         X = build_features(inputs)
