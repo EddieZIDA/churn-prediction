@@ -45,7 +45,6 @@ logger = get_logger(__name__)
 # --- STREAMLIT CONFIG ---
 st.set_page_config(
     page_title="Prédiction de churn bancaire",
-    page_icon="💳",
     layout="centered",
 )
 
@@ -57,20 +56,20 @@ def load_and_validate_model():
     try:
         model = load_model()
         if not validate_model(model):
-            st.error("⚠️ Validation du modèle échouée")
+            st.error("Validation du modèle échouée")
             st.stop()
-        logger.info("Modèle chargé et validé ✓")
+        logger.info("Modèle chargé et validé")
         return model
     except ModelNotFoundError as e:
         logger.error(f"Modèle introuvable: {e}")
         st.error(
-            "❌ Modèle introuvable. Exécutez notebooks/03_modeling.ipynb "
+            "Modèle introuvable. Exécutez notebooks/03_modeling.ipynb "
             "pour le régénérer, ou définissez MLFLOW_MODEL_URI."
         )
         st.stop()
     except ModelValidationError as e:
         logger.error(f"Modèle invalide: {e}")
-        st.error(f"❌ Le modèle chargé est invalide: {e}")
+        st.error(f"Le modèle chargé est invalide: {e}")
         st.stop()
 
 
@@ -91,7 +90,7 @@ def load_explainer(_model):
     """
     try:
         explainer = create_explainer(_model)
-        logger.info("Explicateur SHAP initialisé ✓")
+        logger.info("Explicateur SHAP initialisé")
         return explainer
     except SHAPExplainerError as e:
         logger.error(f"Erreur initialisation SHAP: {e}")
@@ -123,7 +122,7 @@ def display_prediction_result(proba_churn: float):
 
     # Affichage styled
     st.divider()
-    st.subheader("📊 Résultat de la prédiction")
+    st.subheader("Résultat de la prédiction")
     st.markdown(
         f"""
         <div style='background-color:{color}; padding:20px;
@@ -164,7 +163,7 @@ def display_retention_advice(proba_churn: float, balance: float):
     """
     decision = retention_decision(proba_churn, balance)
 
-    st.subheader("💶 Recommandation d'action")
+    st.subheader("Recommandation d'action")
     col1, col2, col3 = st.columns(3)
     col1.metric("Valeur estimée du client", f"{decision.customer_value:,.0f} €")
     col2.metric("Perte attendue sans action", f"{decision.expected_loss:,.0f} €")
@@ -177,13 +176,13 @@ def display_retention_advice(proba_churn: float, balance: float):
 
     if decision.contact:
         st.success(
-            f"✅ **Contacter ce client.** La perte attendue "
+            f"**Contacter ce client.** La perte attendue "
             f"({decision.expected_loss:,.0f} €) dépasse le coût d'une campagne "
             f"({CONTACT_COST_EUR:,.0f} €)."
         )
     else:
         st.info(
-            f"⏸️ **Pas d'action.** La perte attendue "
+            f"**Pas d'action.** La perte attendue "
             f"({decision.expected_loss:,.0f} €) ne couvre pas le coût d'une "
             f"campagne ({CONTACT_COST_EUR:,.0f} €), malgré un risque de "
             f"{proba_churn:.0%}."
@@ -202,7 +201,7 @@ def display_client_features(X: pd.DataFrame):
     X : pd.DataFrame
         Features du client, une ligne par prédiction
     """
-    with st.expander("📋 Voir les détails du profil client encodé"):
+    with st.expander("Voir les détails du profil client encodé"):
         st.dataframe(
             X.T.rename(columns={0: "Valeur"}),
             width="stretch",
@@ -224,7 +223,7 @@ def display_shap_explanation(explainer, X: pd.DataFrame):
         return
 
     try:
-        st.write("#### 🔍 Top 3 facteurs influençant cette prédiction")
+        st.write("#### Top 3 facteurs influençant cette prédiction")
 
         # Obtenir les features influentes
         top_features = explainer.get_top_features(X, top_n=3)
@@ -232,7 +231,7 @@ def display_shap_explanation(explainer, X: pd.DataFrame):
         # Affichage en colonnes
         cols = st.columns(3)
         for i, (_, row) in enumerate(top_features.iterrows()):
-            direction = "🔺 Augmente" if row["Impact SHAP"] > 0 else "🔻 Diminue"
+            direction = "Augmente" if row["Impact SHAP"] > 0 else "Diminue"
             color = "normal" if row["Impact SHAP"] > 0 else "inverse"
 
             with cols[i]:
@@ -249,13 +248,13 @@ def display_shap_explanation(explainer, X: pd.DataFrame):
 
     except SHAPExplainerError as e:
         logger.error(f"Erreur calcul SHAP: {e}", exc_info=True)
-        st.error("❌ Impossible de calculer les explications SHAP pour ce client")
+        st.error("Impossible de calculer les explications SHAP pour ce client")
 
 
 # --- MAIN APPLICATION ---
 def main():
     """Fonction principale de l'application Streamlit."""
-    st.title("💳 Prédiction du churn client bancaire")
+    st.title("Prédiction du churn client bancaire")
     st.markdown(
         "Cette application prédit la probabilité de départ d'un client "
         "bancaire et met en avant les principaux facteurs de risque."
@@ -266,7 +265,7 @@ def main():
     explainer = load_explainer(model)
 
     # Formulaire de saisie
-    st.subheader("📝 Profil du client")
+    st.subheader("Profil du client")
     with st.form(key="client_form"):
         col1, col2 = st.columns(2)
 
@@ -338,7 +337,7 @@ def main():
             )
 
         submit_button = st.form_submit_button(
-            "🚀 Prédire le churn",
+            "Prédire le churn",
             width="stretch",
         )
 
@@ -367,7 +366,7 @@ def main():
 
         except ValueError as e:
             logger.warning(f"Validation échouée: {e}")
-            st.error(f"❌ Erreur validation données: {e}")
+            st.error(f"Erreur validation données: {e}")
             st.stop()
 
         # Construire features
@@ -396,7 +395,7 @@ def main():
         # Footer
         st.divider()
         st.caption(
-            "💡 Cette prédiction est basée sur le modèle LightGBM "
+            "Cette prédiction est basée sur le modèle LightGBM "
             "entraîné sur 10,000 clients bancaires (AUC-ROC: 0.87)."
         )
 

@@ -62,7 +62,7 @@ class ShapExplainer:
             raise SHAPExplainerError(error_msg) from e
 
         self.background_data = background_data
-        logger.info("SHAP explainer initialisé ✓")
+        logger.info("SHAP explainer initialisé")
 
     def explain(self, X: Any) -> np.ndarray:
         """Calcule SHAP values pour une prédiction.

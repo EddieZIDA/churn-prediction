@@ -63,9 +63,9 @@ Les 3 features les plus influentes identifiées par SHAP sur le modèle LightGBM
 
 | Feature | Direction | Interprétation |
 |---------|-----------|----------------|
-| `age` | 🔺 Risque croissant jusqu'à 50-60 ans | Pic à 58,6 % de churn sur la tranche 50-60 ans, puis repli au-delà. Les moins de 30 ans sont les plus stables (6,3 %) |
-| `products_2` | 🔻 Risque fortement réduit | Détenir exactement 2 produits est la situation la plus stable : 8,4 % de churn, contre 30,5 % pour tous les autres cas |
-| `active_member` | 🔻 Risque réduit | Un client actif churne à 13,7 %, un inactif à 27,5 % |
+| `age` | Risque croissant jusqu'à 50-60 ans | Pic à 58,6 % de churn sur la tranche 50-60 ans, puis repli au-delà. Les moins de 30 ans sont les plus stables (6,3 %) |
+| `products_2` | Risque fortement réduit | Détenir exactement 2 produits est la situation la plus stable : 8,4 % de churn, contre 30,5 % pour tous les autres cas |
+| `active_member` | Risque réduit | Un client actif churne à 13,7 %, un inactif à 27,5 % |
 
 > Ces valeurs proviennent de la sortie du notebook `03_modeling.ipynb`, et non
 > d'une lecture visuelle du graphique SHAP.

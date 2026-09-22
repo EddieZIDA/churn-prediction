@@ -171,7 +171,7 @@ def validate_model(model: Any) -> bool:
             logger.error(f"Proba ne somme pas à 1: {pred.sum(axis=1)[0]:.6f}")
             return False
 
-        logger.info("Validation modèle réussie ✓")
+        logger.info("Validation modèle réussie")
         return True
 
     except Exception as e:

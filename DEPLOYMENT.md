@@ -4,7 +4,7 @@ Ce guide explique comment déployer l'application Churn Prediction en production
 
 ---
 
-## 🚀 Streamlit Cloud (Recommandé - Gratuit)
+## Streamlit Cloud (Recommandé - Gratuit)
 
 ### Prérequis
 
@@ -52,7 +52,7 @@ d'environnement : il est dérivé de `src/config.py`.
 
 ### Auto-Redeploy
 
-✅ Automatique à chaque push sur `main`!
+Automatique à chaque push sur `main`!
 
 - Push code → GitHub Actions tests run
 - Streamlit Cloud détecte le push et reconstruit l'application
@@ -97,7 +97,7 @@ Streamlit Cloud Dashboard:
 
 ---
 
-## 🐳 Docker & Docker Hub (Avancé)
+## Docker & Docker Hub (Avancé)
 
 ### Build Local Docker Image
 
@@ -147,7 +147,7 @@ docker run -d \
 
 ---
 
-## 🔄 CI/CD Workflow
+## CI/CD Workflow
 
 ### Automatisé à Chaque Commit
 
@@ -183,7 +183,7 @@ Streamlit Cloud → Manage app → Reboot app
 
 ---
 
-## 📊 Monitoring & Logs
+## Monitoring & Logs
 
 ### Streamlit Cloud Logs
 
@@ -212,17 +212,17 @@ Streamlit Cloud → Manage app → View logs
 
 ---
 
-## 🔐 Secrets Management
+## Secrets Management
 
 ### Sensitive Data (Passwords, Keys)
 
-**❌ NEVER commit to GitHub:**
+**NEVER commit to GitHub:**
 - Passwords
 - API keys
 - Database credentials
 - Model URIs with auth
 
-**✅ Use Streamlit Cloud Secrets:**
+**Use Streamlit Cloud Secrets:**
 
 ```
 Settings → Secrets → Paste:
@@ -241,7 +241,7 @@ mlflow_user = st.secrets["MLFLOW_TRACKING_USERNAME"]
 
 ---
 
-## 🚨 Common Issues & Solutions
+## Common Issues & Solutions
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
@@ -254,7 +254,7 @@ mlflow_user = st.secrets["MLFLOW_TRACKING_USERNAME"]
 
 ---
 
-## ✅ Deployment Checklist
+## Deployment Checklist
 
 Before pushing to main:
 
@@ -276,7 +276,7 @@ Push to main (or merge PR):
 
 ---
 
-## 📞 Support & Escalation
+## Support & Escalation
 
 | Problem | Who | Action |
 |---------|-----|--------|
