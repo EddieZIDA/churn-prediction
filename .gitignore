@@ -1,4 +1,33 @@
+# Environnements
 venv/
-__pycache__/
-*.csv
+env/
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Données (le dataset se récupère depuis Kaggle, cf. data/README.md)
+*.csv
+
+# Tests & couverture
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Logs applicatifs
+logs/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Backend de suivi MLflow (regénéré à chaque exécution du notebook 03)
+mlflow.db
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,10 +1,39 @@
-﻿pandas==2.3.3
+# Dépendances du projet — versions figées pour la reproductibilité.
+
+# --- Exécution ---
+pandas==2.3.3
 numpy==2.4.1
 scikit-learn==1.8.0
 lightgbm==4.6.0
 xgboost==3.1.3
+pydantic==2.13.4
+
+# Visualisation & interprétabilité
 matplotlib==3.10.8
 seaborn==0.13.2
 shap==0.51.0
+
+# Suivi d'expériences
 mlflow==3.12.0
+
+# Application web
 streamlit==1.57.0
+
+# === DEV — au-delà de cette ligne, rien n'est requis pour servir l'app ===
+# Le Dockerfile coupe le fichier à ce marqueur. Toute dépendance ajoutée
+# en dessous reste donc hors de l'image de production, sans qu'aucune liste
+# de paquets n'ait à être maintenue en double.
+
+# Qualité de code (également installées par la CI)
+black==26.5.1
+flake8==7.3.0
+pytest==9.1.1
+pytest-cov==7.1.0
+bandit==1.9.4
+
+# Notebooks. Sans jupyterlab, la commande `jupyter lab` se résout vers une
+# éventuelle installation Python globale, dont les kernels n'ont pas accès
+# aux dépendances de ce projet.
+jupyterlab==4.6.4
+ipykernel==7.1.0
+nbconvert==7.17.1

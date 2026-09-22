@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "churn-prediction"
+version = "1.0.0"
+description = "Prédiction du churn client bancaire — modèle LightGBM, app Streamlit"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "ZIDA Wend Kouni Eddie Eliel" }]
+
+[project.urls]
+Repository = "https://github.com/EddieZIDA/churn-prediction"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    "ignore::UserWarning",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/__init__.py"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
