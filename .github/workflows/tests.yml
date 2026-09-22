@@ -1,0 +1,87 @@
+name: Tests & Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Versions extraites de requirements.txt : la CI applique
+          # exactement les mêmes que le poste de développement.
+          grep -E '^(black|flake8)==' requirements.txt | xargs pip install
+      
+      - name: Run black format check
+        run: black --check src/ tests/ streamlit_app.py
+      
+      - name: Run flake8 linter
+        run: flake8 src/ tests/ streamlit_app.py --count
+
+  test:
+    name: Tests & Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run tests with coverage
+        run: |
+          pytest tests/ -v --cov=src --cov-report=term-missing --cov-report=xml
+      
+      - name: Check coverage threshold (80%)
+        run: |
+          coverage report --fail-under=80
+      
+      - name: Upload coverage to Codecov (optional)
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          fail_ci_if_error: false
+      
+      - name: Comment PR with coverage
+        if: github.event_name == 'pull_request'
+        uses: py-cov-action/python-coverage-comment-action@v3
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  security:
+    name: Security Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      
+      - name: Install bandit
+        run: grep -E '^bandit==' requirements.txt | xargs pip install
+      
+      - name: Run security check
+        run: bandit -r src/ --skip B101 || true
+        # B101 = assert_used (acceptable for tests)

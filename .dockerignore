@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Documentation
+docs/_build/
+
+# Git & CI (les commentaires en fin de ligne ne sont pas supportés ici :
+# ils feraient partie du motif)
+.git
+.gitignore
+.gitattributes
+.github/
+
+# Other
+README.md
+LICENSE
+.env
+.env.local
+Dockerfile
+docker-compose.yml
+Makefile
+.pre-commit-config.yaml

@@ -1,0 +1,32 @@
+name: Streamlit Cloud Deployment Gate
+
+on:
+  workflow_run:
+    workflows: ["Tests & Lint"]
+    types: [completed]
+
+jobs:
+  verify:
+    name: Verify deployable application
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check application syntax
+        run: python -m py_compile streamlit_app.py
+
+      - name: Deployment summary
+        run: echo "Streamlit Cloud will auto-deploy the main branch from its connected repository."
